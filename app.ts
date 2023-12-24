@@ -12,8 +12,15 @@ if (!port) {
 
 const app = express();
 
+app.use((req, res, next) => {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    next();
+  });
+
 app.get('/', (_req, res: Response) => {
   res.send('Hello World!');
+  console.log("i work");
 });
 
 app.listen(Number(port), () => {
