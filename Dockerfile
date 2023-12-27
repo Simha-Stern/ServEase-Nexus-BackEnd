@@ -1,15 +1,6 @@
-FROM node:18-alpine AS builder
+FROM node:slim
 WORKDIR /app
-COPY package*.json ./
-RUN npm install
-RUN npm install -D typescript
 COPY . .
-RUN npm run build
-
-FROM node:18-alpine
-WORKDIR /app
-COPY --from=builder /app/dist ./dist
-COPY --from=builder /app/package*.json ./
 RUN npm install
-EXPOSE 8200
-CMD ["npm", "start"]
+RUN npm install -g nodemon
+# CMD ["npm", "run", "dev"]
